@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import Entity.UserVoluntary;
 import Storage.DbException;
 import Storage.DbFunctions;
 
@@ -20,11 +21,19 @@ public class Register {
         PreparedStatement st = null;
         ResultSet rs = null;
 
-        System.out.print("Digite seu email: ");
-        email = SCN.next();
-
         conn = DbFunctions.getConnection();
 
+        do {
+            System.out.print("Digite seu nome: ");
+            name = SCN.nextLine();
+            // System.out.println(name);
+            if (name.length() < 3) {
+                System.out.println("Nome pequeno demais.");
+            }
+        } while (name.length() < 3);
+
+        System.out.print("Digite seu email: ");
+        email = SCN.next();
         boolean checkEmail = DbFunctions.validateEmail(email, st, rs, conn);
         if (!checkEmail) {
             System.out.println("Email inválido!");
@@ -40,7 +49,18 @@ public class Register {
                 System.out.println("CPF inválido ou já cadastrado");
             } else {
                 System.out.println("CPF válido");
+
+                System.out.print("Digite sua senha (pelo menos 7 digitos): ");
+                password = SCN.next();
+
+                if (password.length() < 7) {
+                    System.out.println("Senha inválida!");
+                } else {
+                    UserVoluntary userV = new UserVoluntary(email, password, name, cpf);
+                    userV.registerYourself(st, conn);
+                }
             }
+
         }
 
         DbFunctions.closeResultSet(rs);

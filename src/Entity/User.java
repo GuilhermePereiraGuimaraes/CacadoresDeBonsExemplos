@@ -1,5 +1,11 @@
 package Entity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 abstract class User {
     String email;
     String password;
@@ -51,4 +57,25 @@ abstract class User {
         return this.type;
     }
 
+    public void registerYourself(PreparedStatement st, Connection con) {
+        String sql = "INSERT INTO users" +
+                "(Email, Password, Name, CPF, Type)" +
+                "VALUES" +
+                "(?, ?, ?, ?, ?)";
+
+        try {
+            st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, email);
+            st.setString(2, password);
+            st.setString(3, name);
+            st.setString(4, cpf);
+            st.setInt(5, type);
+
+            System.out.println("Usuário cadastrado. Linhas afetadas: " + st.executeUpdate());
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+    }
 }
