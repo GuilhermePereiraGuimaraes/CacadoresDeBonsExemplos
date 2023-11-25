@@ -70,8 +70,9 @@ abstract class User {
             st.setString(3, name);
             st.setString(4, cpf);
             st.setInt(5, type);
+            st.executeUpdate();
 
-            System.out.println("Usuário cadastrado. Linhas afetadas: " + st.executeUpdate());
+            System.out.println("Usuário cadastrado.");
 
         } catch (SQLException e) {
             // TODO: handle exception
