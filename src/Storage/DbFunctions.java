@@ -1,5 +1,6 @@
 package Storage;
 
+import java.sql.Date;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class DbFunctions {
 
@@ -136,6 +139,35 @@ public class DbFunctions {
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
+        }
+    }
+
+    public static void addProject(String name, String organization, String initialDate, double costInitial,
+            String link) {
+
+        SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
+
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            con = DbFunctions.getConnection();
+            st = con.prepareStatement("INSERT INTO projects" +
+                    "(Name, Organization, InitialDate, CostInitial, Link)" +
+                    "VALUES" +
+                    "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+            st.setString(1, name);
+            st.setString(2, organization);
+            st.setDate(3, new java.sql.Date(dateF.parse(initialDate).getTime()));
+        } catch (SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        } catch (ParseException e) {
+
+        } finally {
+
         }
     }
 
