@@ -3,6 +3,9 @@ package Presentation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import Storage.DbFunctions;
+
 import java.time.LocalDate;
 
 public class ScreenAdm {
@@ -89,7 +92,8 @@ public class ScreenAdm {
                 data[1] = mesStr;
                 data[2] = diaStr;
 
-                System.out.println(String.join("-", data));
+                String dataStr = String.join("-", data);
+                // System.out.println(String.join("-", data));
 
                 double custoInicial = 0;
                 do {
@@ -102,6 +106,9 @@ public class ScreenAdm {
 
                 System.out.print("Coloque o link do projeto aqui: ");
                 String link = INPUT.next();
+
+                DbFunctions.addProject(name, organization, dataStr, custoInicial, link);
+                System.out.println("Projeto adicionado!");
 
             } else if (escolha == 2) {
                 System.out.println("Filtro");

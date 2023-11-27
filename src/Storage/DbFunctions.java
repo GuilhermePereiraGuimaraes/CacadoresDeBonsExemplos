@@ -149,7 +149,6 @@ public class DbFunctions {
 
         Connection con = null;
         PreparedStatement st = null;
-        ResultSet rs = null;
 
         try {
             con = DbFunctions.getConnection();
@@ -161,13 +160,16 @@ public class DbFunctions {
             st.setString(1, name);
             st.setString(2, organization);
             st.setDate(3, new java.sql.Date(dateF.parse(initialDate).getTime()));
+            st.setDouble(4, costInitial);
+            st.setString(5, link);
+            st.executeUpdate();
         } catch (SQLException e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            throw new DbException(e.getMessage());
         } catch (ParseException e) {
-
+            e.printStackTrace();
         } finally {
-
+            closeStatement(st);
+            closeConnection();
         }
     }
 
