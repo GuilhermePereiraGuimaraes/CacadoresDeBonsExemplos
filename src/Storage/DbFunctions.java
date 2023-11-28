@@ -142,13 +142,11 @@ public class DbFunctions {
         }
     }
 
-    public static void addProject(String name, String organization, String initialDate, double costInitial,
+    public static void addProject(Connection con, PreparedStatement st, String name, String organization,
+            String initialDate, double costInitial,
             String link) {
 
         SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
-
-        Connection con = null;
-        PreparedStatement st = null;
 
         try {
             con = DbFunctions.getConnection();
@@ -169,8 +167,33 @@ public class DbFunctions {
             e.printStackTrace();
         } finally {
             closeStatement(st);
-            closeConnection();
         }
+    }
+
+    public static void searchByName(Connection con, PreparedStatement st, ResultSet rs, String name) {
+        String sql = "select *" +
+                "from projeto_bonsexemplos.projects where Name like ?";
+
+        try {
+            st = con.prepareStatement(sql);
+            st.setString(1, "%" + name + "%");
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(
+                        "Id: " + rs.getInt("Id") + " | " + "Name: " + rs.getString("Name") + " | " + "Organization: "
+                                + rs.getString("Organization") + " | " + "Initial Date: " + rs.getDate("InitialDate")
+                                + " | " + "Initial Cost: R$"
+                                + rs.getDouble("CostInitial") + " | " + "Link: " + rs.getString("Link"));
+            }
+            System.out.println("Feito...");
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+        }
+
     }
 
     public static void closeStatement(Statement st) {

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import Entity.UserAdministrator;
 import Entity.UserVoluntary;
 import Storage.DbException;
 import Storage.DbFunctions;
@@ -56,8 +57,17 @@ public class Register {
                 if (password.length() < 7) {
                     System.out.println("Senha inválida!");
                 } else {
-                    UserVoluntary userV = new UserVoluntary(email, password, name, cpf);
-                    userV.registerYourself(st, conn);
+                    System.out.println("Digite o tipo de conta 1(Adm) 2(Voluntário): ");
+                    int countType = SCN.nextInt();
+                    if (countType == 2) {
+                        UserVoluntary userV = new UserVoluntary(email, password, name, cpf);
+                        userV.registerYourself(st, conn);
+                    } else if (countType == 1) {
+                        UserAdministrator userA = new UserAdministrator(email, password, name, cpf);
+                        userA.registerYourself(st, conn);
+                    } else {
+                        System.out.println("Tipo de conta.");
+                    }
                 }
             }
 
