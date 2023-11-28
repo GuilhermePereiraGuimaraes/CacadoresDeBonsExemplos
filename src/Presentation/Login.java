@@ -37,9 +37,9 @@ public class Login {
             if (rs.next()) {
                 System.out.println("Logou!");
                 if (rs.getInt("Type") == 1) {
-                    System.out.println("Admistrador");
+                    ScreenAdm.main(args);
                 } else {
-                    System.out.println("Voluntário");
+                    ScreenVoluntary.main(args);
                 }
             } else {
                 System.out.println("Login ou senha incorretos.");
