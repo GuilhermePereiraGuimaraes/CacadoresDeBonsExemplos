@@ -102,7 +102,6 @@ public class ScreenAdm {
                     data[2] = diaStr;
 
                     String dataStr = String.join("-", data);
-                    // System.out.println(String.join("-", data));
 
                     double custoInicial = 0;
                     do {
@@ -116,7 +115,8 @@ public class ScreenAdm {
                     System.out.print("Coloque o link do projeto aqui: ");
                     String link = INPUT.next();
 
-                    DbFunctions.addProject(con, st, name, organization, dataStr, custoInicial, link);
+                    DbFunctions.addProject(con, st, name, organization, dataStr, custoInicial,
+                            link);
                     System.out.println("Projeto adicionado!");
 
                 } else if (escolha == 2) {

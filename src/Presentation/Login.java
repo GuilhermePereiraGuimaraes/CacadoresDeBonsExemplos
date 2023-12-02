@@ -25,7 +25,7 @@ public class Login {
         password = SCN.nextLine();
 
         String sql = "SELECT *" +
-                "FROM projeto_bonsexemplos.users WHERE Email = ? AND Password = ?";
+                "FROM railway.users WHERE Email = ? AND Password = ?";
         try {
             con = DbFunctions.getConnection();
             st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

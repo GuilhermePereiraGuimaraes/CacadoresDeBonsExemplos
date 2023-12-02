@@ -154,7 +154,6 @@ public class DbFunctions {
                     "(Name, Organization, InitialDate, CostInitial, Link)" +
                     "VALUES" +
                     "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-
             st.setString(1, name);
             st.setString(2, organization);
             st.setDate(3, new java.sql.Date(dateF.parse(initialDate).getTime()));
@@ -172,7 +171,7 @@ public class DbFunctions {
 
     public static void searchByName(Connection con, PreparedStatement st, ResultSet rs, String name) {
         String sql = "select *" +
-                "from projeto_bonsexemplos.projects where Name like ?";
+                "from railway.projects where Name like ?";
 
         try {
             st = con.prepareStatement(sql);
