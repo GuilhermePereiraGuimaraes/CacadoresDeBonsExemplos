@@ -83,7 +83,7 @@ public class DbFunctions {
 
     public static boolean validateCPF(String cpf, PreparedStatement st, ResultSet rs, Connection con) {
         String sql = "select *" +
-                "from projeto_bonsexemplos.users where CPF = ?";
+                "from railway.users where CPF = ?";
 
         try {
             st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
