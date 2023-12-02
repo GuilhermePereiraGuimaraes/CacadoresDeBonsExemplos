@@ -15,7 +15,7 @@ import Storage.DbFunctions;
 public class Register {
     private static final Scanner SCN = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void execute() {
         String email, cpf, name, password;
 
         Connection conn = null;

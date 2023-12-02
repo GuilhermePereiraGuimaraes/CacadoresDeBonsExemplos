@@ -15,11 +15,10 @@ public class Program {
             if (!escolha.equals("1") && !escolha.equals("2") && !escolha.equals("3")) {
                 System.out.println("Valor inválido tente novamente.");
             } else {
-                SCN.close();
                 if (escolha.equals("1")) {
                     Login.main(args);
                 } else if (escolha.equals("2")) {
-                    Register.main(args);
+                    Register.execute();
                 }
             }
 

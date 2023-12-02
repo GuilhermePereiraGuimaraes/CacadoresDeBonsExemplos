@@ -58,7 +58,7 @@ public class DbFunctions {
     public static boolean validateEmail(String email, PreparedStatement st, ResultSet rs, Connection con) {
 
         String sql = "select *" +
-                "from projeto_bonsexemplos.users where Email = ?";
+                "from railway.users where Email = ?";
 
         try {
             st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
